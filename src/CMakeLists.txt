@@ -1,13 +1,16 @@
-project(ConsoleUI)
+project(ConsoleTest)
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_CXX_STANDARD 11)
 
 set(INC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(BIN_PATH ${CMAKE_CURRENT_BINARY_DIR}/output_bin)
 
-set(MODULE_NAME con)
+set(MODULE_NAME ConsoleTest)
 set(SOURCES
-        main.cpp)
+        main.cpp
+        include/ConsoleGUI.cpp
+        include/ConsoleImpl.hpp)
 
 include_directories(${INC_PATH})
 

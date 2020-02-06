@@ -3,9 +3,11 @@
 //
 #include <stdio.h>
 
+#include "ConsoleGUI.h"
 
-
-int main(int argc, char** argc)
+int main(int argc, char** argv)
 {
-  printf ("hello world!\n");
+  printf ("hello world1111!\n");
+  ConsoleGUI gui;
+  gui.Initialize();
 }
