@@ -4,81 +4,95 @@
 
 #include "ConsoleGUI.h"
 
-ConsoleGUI::ConsoleGUI() {
-}
-
-ConsoleGUI::~ConsoleGUI() {
-}
+struct termios ConsoleGUI::saved_ = {0,};
 
 void ConsoleGUI::Initialize() {
   //do something
-  DrawBackground(console_);
+  DrawBackground();
 }
 
-void ConsoleGUI::DrawBackground(ConsoleImpl &console) {
-  console.PrintColored("WELCOME TEST STRING ABCDEGGSADF SAFD 간드아아아 !@#%$!@#!@#!@#",
-                       ANSI_COLOR_WHITE,
-                       true);
-  console.RestoreDefaultColor();
-  console.NewLine();
+void ConsoleGUI::DrawBackground() {
+
+  SetNoEcho();
+  PrintColored("WELCOME TEST STRING ABCDEGGSADF SAFD 간드아아아 !@#%$!@#!@#!@#",
+               ANSI_COLOR_WHITE,
+               true);
+  RestoreDefaultColor();
+  NewLine();
 
   for (int j = 0; j < 19; j++) {
     for (int i = 0; i < 35; i++) {
-      console.DirectSgr(color_infos_[background_array_[j][i]]);
-      console.Print("  ");
+      DirectSgr(color_infos_[background_array_[j][i]]);
+      Print("  ");
     }
-    console.RestoreDefaultColor();
-    console.NewLine();
+    RestoreDefaultColor();
+    NewLine();
   }
 
-  console.CursorUp(20);
-  console.SetAsBasePos();
+  CursorUp(20);
+  SetAsBasePos();
 
-  DrawPanel(console);
+  DrawPanel();
 }
 
-void ConsoleGUI::DrawPanel(ConsoleImpl &console) {
-  console.GotoXY(0, 1);
+void ConsoleGUI::DrawPanel() {
+  GotoXY(0, 1);
 
   for (int j = 0; j < 17; j++) {
     for (int i = 0; i < 35; i++) {
-      console.DirectSgr(color_infos_[background_array_[j][i]]);
-      console.Print("  ");
+      DirectSgr(color_infos_[background_array_[j][i]]);
+      Print("  ");
     }
-    console.RestoreDefaultColor();
-    console.NewLine();
+    RestoreDefaultColor();
+    NewLine();
   }
 
-  console.GotoXY(0, 1);
-  console.PrintColored("     TEST1     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, true);
+  GotoXY(0, 1);
+  PrintColored("     TEST1     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, true);
 
-  console.GotoXY(18, 1);
-  console.PrintColored("               Test2     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, false);
+  GotoXY(18, 1);
+  PrintColored("               Test2     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, false);
 
-  console.GotoXY(0, selectedIndex + 2);
-  console.PrintColored("                                                                      ",
-                       ANSI_COLOR_WHITE,
-                       true,
-                       ANSI_COLOR_YELLOW,
-                       false);
+  GotoXY(0, selectedIndex + 2);
+  PrintColored("                                                                      ",
+               ANSI_COLOR_WHITE,
+               true,
+               ANSI_COLOR_YELLOW,
+               false);
 
-  console.GotoXY(0, 18);
-  console.PrintColored(" Menu???????                                              ",
-                       ANSI_COLOR_WHITE,
-                       true,
-                       ANSI_COLOR_BLUE,
-                       false);
-  console.GotoXY(26, 18);
-  console.PrintColored("TEST 33333333", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, false);
-  console.GotoXY(0, 19);
-  console.PrintColored("                                                                      ",
-                       ANSI_COLOR_WHITE,
-                       true,
-                       ANSI_COLOR_BLUE,
-                       false);
+  GotoXY(0, 18);
+  PrintColored(" Key Input Message                                              ",
+               ANSI_COLOR_WHITE,
+               true,
+               ANSI_COLOR_BLUE,
+               false);
+  GotoXY(26, 18);
+  PrintColored("TEST 33333333", ANSI_COLOR_WHITE, true, ANSI_COLOR_WHITE, false);
+  GotoXY(0, 19);
+  PrintColored("                                                                      ",
+               ANSI_COLOR_WHITE,
+               true,
+               ANSI_COLOR_BLUE,
+               false);
 
-  console.GotoXY(70, selectedIndex + 2);
-  console.Flush();
+  GotoXY(70, selectedIndex + 2);
+  Flush();
+}
+
+void ConsoleGUI::SetEcho() {
+  tcsetattr(STDIN_FILENO, TCSANOW, &saved_);
+}
+
+void ConsoleGUI::SetNoEcho() {
+  tcgetattr(STDIN_FILENO, &saved_);
+  atexit(SetEcho);
+
+  struct termios attr = {0,};
+  tcgetattr(STDIN_FILENO, &attr);
+  attr.c_lflag &= ~(ICANON | ECHO);
+  attr.c_cc[VMIN] = 1;
+  attr.c_cc[VTIME] = 0;
+  tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
 }
 
 

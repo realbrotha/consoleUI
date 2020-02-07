@@ -9,20 +9,22 @@
 
 #include "ConsoleImpl.hpp"
 
-class ConsoleGUI {
+class ConsoleGUI : public ConsoleImpl {
  public :
-  ConsoleGUI();
-  ~ConsoleGUI();
+  ConsoleGUI() = default;
+  ~ConsoleGUI() = default;
 
   void Initialize();
 
  private :
-  void DrawBackground(ConsoleImpl &console);
-  void DrawPanel(ConsoleImpl& console);
+  void DrawBackground();
+  void DrawPanel();
 
-  void SetEchoOff();
-  ConsoleImpl console_;
+  static void SetEcho();
+  void SetNoEcho();
 
+  //ConsoleImpl console_;
+  static struct termios saved_;
   int selectedIndex = 0;
   int color_infos_[4] = {0, 44, 104, 100};
   char background_array_[19][35] =             // FIXME : 데이터가 좀 보기 싫다 . 이동하거나 다른 방안 강구, 별도의 파일은 투머치
