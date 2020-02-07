@@ -12,24 +12,23 @@ int main(int argc, char **argv) {
   bool exitLoop = false;
   while (!exitLoop) {
     int key = gui.GetKey();
-
     switch (key) {
       case 'q':
       case 'Q':exitLoop = true;
         break;
       case VKEY_UP:
-        /*
-        if (selectedIndex-1>=0) { selectedIndex--; }
-        else if (viewBase-1>=0) { viewBase--; }
-         */
+        if (gui.selectedIndex - 1 >= 0) gui.selectedIndex--;
+        else if (gui.viewBase - 1 >= 0) gui.viewBase--;
         break;
       case VKEY_DOWN:
-        /*
-        if (viewBase+selectedIndex+1 >= excludeList.size()) {;}
-        else if (selectedIndex+1<=15) { selectedIndex++; }
-        else if (viewBase+selectedIndex < excludeList.size()) { viewBase++; }
-         */
+        if (gui.selectedIndex + 1 <= 4) gui.selectedIndex++;
+        else if (gui.viewBase + gui.selectedIndex < 5) gui.viewBase++;
+
         break;
+    }
+
+    if (key != 'q' && key != 'Q') {
+      gui.DrawPanel();
     }
   }
 

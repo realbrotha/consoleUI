@@ -48,35 +48,50 @@ void ConsoleGUI::DrawPanel() {
   }
 
   GotoXY(0, 1);
-  PrintColored("     TEST1     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, true);
+  PrintColored("     MENU-TOP1-Title", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, true);
 
   GotoXY(18, 1);
-  PrintColored("               Test2     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, false);
+  PrintColored("               MENU-SUB2-TITLE     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, false);
 
   GotoXY(0, selectedIndex + 2);
-  PrintColored("                                                                      ",
-               ANSI_COLOR_WHITE,
-               true,
-               ANSI_COLOR_YELLOW,
-               false);
+  PrintColored("              ",ANSI_COLOR_WHITE,true,ANSI_COLOR_YELLOW,false);
 
+  DrawChildAttr();
   GotoXY(0, 18);
-  PrintColored(" Key Input Message                                              ",
-               ANSI_COLOR_WHITE,
-               true,
-               ANSI_COLOR_BLUE,
-               false);
+  PrintColored(" Key Input Message",ANSI_COLOR_WHITE,true, ANSI_COLOR_BLACK,false);
   GotoXY(26, 18);
   PrintColored("TEST 33333333", ANSI_COLOR_WHITE, true, ANSI_COLOR_WHITE, false);
   GotoXY(0, 19);
-  PrintColored("                                                                      ",
-               ANSI_COLOR_WHITE,
-               true,
-               ANSI_COLOR_BLUE,
-               false);
-
+  PrintColored(" TEST 44444",ANSI_COLOR_WHITE,true,ANSI_COLOR_BLACK,false);
   GotoXY(70, selectedIndex + 2);
+
   Flush();
+}
+
+
+void ConsoleGUI::DrawChildAttr() {
+  constexpr int kMAX_MENU_SIZE = 5;
+
+  for(int i=0; i<5; i++)
+  {
+    if (viewBase + i < kMAX_MENU_SIZE)
+    {
+      if (selectedIndex == i)
+      {
+        GotoXY(0, 2+i);
+        PrintColored(" On Cursor         ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
+        GotoXY(19, 2+i);
+        PrintColored(" On Cursor               ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
+      }
+      else
+      {
+        GotoXY(0, 2+i);
+        PrintColored(" TEST String 11", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, true);
+        GotoXY(19, 2+i);
+        PrintColored(" TEST String 22", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, false);
+      }
+    }
+  }
 }
 
 void ConsoleGUI::SetEcho() {
