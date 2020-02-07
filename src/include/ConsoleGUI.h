@@ -17,7 +17,7 @@ class ConsoleGUI : public ConsoleImpl {
 
   void Initialize();
 
-  int selectedIndex = 0;  // FixME : 테스트용 코드, 변수 참조 Getter/Setter 를 만들던지, 인덱스를 처리할 방법으로 처리 
+  int selectedIndex = 0;  // FixME : 테스트용 코드, 변수 참조 Getter/Setter 를 만들던지, 인덱스를 처리할 방법으로 처리
   int viewBase = 0;
   void DrawPanel();
  private :

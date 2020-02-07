@@ -48,21 +48,21 @@ void ConsoleGUI::DrawPanel() {
   }
 
   GotoXY(0, 1);
-  PrintColored("     MENU-TOP1-Title", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, true);
+  PrintColored(" MENU-TOP1-Title  ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, true);
 
   GotoXY(18, 1);
-  PrintColored("               MENU-SUB2-TITLE     ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, false);
+  PrintColored("               MENU-SUB2-TITLE                      ", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, false);
 
   GotoXY(0, selectedIndex + 2);
   PrintColored("              ",ANSI_COLOR_WHITE,true,ANSI_COLOR_YELLOW,false);
 
   DrawChildAttr();
   GotoXY(0, 18);
-  PrintColored(" Key Input Message",ANSI_COLOR_WHITE,true, ANSI_COLOR_BLACK,false);
+  PrintColored(" Key Input Message",ANSI_COLOR_WHITE,true, ANSI_COLOR_BLUE,true);
   GotoXY(26, 18);
-  PrintColored("TEST 33333333", ANSI_COLOR_WHITE, true, ANSI_COLOR_WHITE, false);
+  PrintColored("TEST 33333333", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, true);
   GotoXY(0, 19);
-  PrintColored(" TEST 44444",ANSI_COLOR_WHITE,true,ANSI_COLOR_BLACK,false);
+  PrintColored(" LICENSE IFNOMATION TEST 44444                                        ",ANSI_COLOR_WHITE,true,ANSI_COLOR_NONE,true);
   GotoXY(70, selectedIndex + 2);
 
   Flush();
@@ -79,16 +79,16 @@ void ConsoleGUI::DrawChildAttr() {
       if (selectedIndex == i)
       {
         GotoXY(0, 2+i);
-        PrintColored(" On Cursor         ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
+        PrintColored(" Overlapped         ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
         GotoXY(19, 2+i);
-        PrintColored(" On Cursor               ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
+        PrintColored(" Overlapped2222              ", ANSI_COLOR_BLACK, false, ANSI_COLOR_YELLOW, false);
       }
       else
       {
         GotoXY(0, 2+i);
-        PrintColored(" TEST String 11", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, true);
+        PrintColored(" TEST String 11", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, true);
         GotoXY(19, 2+i);
-        PrintColored(" TEST String 22", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLACK, false);
+        PrintColored(" TEST String 22", ANSI_COLOR_WHITE, true, ANSI_COLOR_BLUE, false);
       }
     }
   }
